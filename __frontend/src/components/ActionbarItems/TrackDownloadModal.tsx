@@ -1,5 +1,12 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import * as React from 'react';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
+import * as React from "react";
 
 export interface TrackDownloadModalProps {
   id: number;
@@ -11,7 +18,7 @@ export interface TrackDownloadModalProps {
 }
 
 export default function TrackDownloadModal(props: TrackDownloadModalProps) {
-  const handleClose = React.useCallback(() => props.onClose(), [props])
+  const handleClose = React.useCallback(() => props.onClose(), [props]);
 
   return (
     <Dialog open={props.open} onClose={handleClose} fullWidth>
@@ -23,10 +30,21 @@ export default function TrackDownloadModal(props: TrackDownloadModalProps) {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Huỷ</Button>
-        <Button href={`/api/tracks/${props.id}/audio`} download={`${props.title}${props.audioLink.substring(props.audioLink.lastIndexOf('.'))}`} onClick={handleClose}>Audio</Button>
-        <Button href={`/api/tracks/${props.id}/video`} download={`${props.title}${props.videoLink.substring(props.videoLink.lastIndexOf('.'))}`} onClick={handleClose}>Video</Button>
+        <Button
+          href={`/api/tracks/${props.id}/audio`}
+          download={`${props.title}${props.audioLink.substring(props.audioLink.lastIndexOf("."))}`}
+          onClick={handleClose}
+        >
+          Audio
+        </Button>
+        <Button
+          href={`/api/tracks/${props.id}/video`}
+          download={`${props.title}${props.videoLink.substring(props.videoLink.lastIndexOf("."))}`}
+          onClick={handleClose}
+        >
+          Video
+        </Button>
       </DialogActions>
     </Dialog>
-
   );
 }

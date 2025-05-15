@@ -61,10 +61,10 @@ export const getArtistDetail = (id: string) => {
 };
 
 export function createPlaylistFromSaved(title: string, file: File) {
-  const formData = new FormData()
-  formData.append('title', title)
-  formData.append('image', file)
-  return iaxios.post('/playlist-from-saved/', formData)
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("image", file);
+  return iaxios.post("/playlist-from-saved/", formData);
 }
 
 export const deletePlaylist = (id: number) => {
