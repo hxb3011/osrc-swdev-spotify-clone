@@ -1,0 +1,5 @@
+db.sqlite3
+activate.bat
+__pycache__
+/media/*
+!/media/

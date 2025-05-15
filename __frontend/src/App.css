@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+.App {
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar:hover {
+  width: 15px;
+  background-color: transparent;
+  opacity: 1;
+  visibility: visible;
+  transition: 400ms 3s;
+}
+
+
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #898989;
+  transition-duration: 700ms;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ababab; 
+}

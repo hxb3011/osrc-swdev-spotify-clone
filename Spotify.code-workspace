@@ -1,0 +1,288 @@
+{
+    "extensions": {
+        "recommendations": [
+            "ms-vscode-remote.remote-containers",
+            "ms-azuretools.vscode-docker",
+            "VisualStudioExptTeam.vscodeintellicode",
+            "VisualStudioExptTeam.intellicode-api-usage-examples",
+            "VisualStudioExptTeam.vscodeintellicode-completions"
+        ]
+    },
+    "folders": [
+        {
+            "name": "base",
+            "path": "."
+        },
+        {
+            "name": "backend",
+            "path": "./__backend"
+        },
+        {
+            "name": "frontend",
+            "path": "./__frontend"
+        },
+        {
+            "name": "report",
+            "path": "./__report"
+        }
+    ],
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+            {
+                "name": "Docker Launch",
+                "request": "launch",
+                "type": "vscode-edge-devtools.debug",
+                "url": "http://localhost:49084",
+                "preLaunchTask": "[Docker DevEnv] Start",
+                "postDebugTask": "[Docker DevEnv] Stop"
+            }
+        ],
+        "compounds": []
+    },
+    "settings": {
+        "files.exclude": {
+            "__**/**": true,
+            "**/__pycache__/**": true,
+            "**/__init__.py": true,
+            "**/node_modules/**": true,
+            "**/.vs": true,
+            "**/bin": true,
+            "**/obj": true,
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/Thumbs.db": true
+        }
+    },
+    "tasks": {
+        "version": "2.0.0",
+        "tasks": [
+            {
+                "args": [
+                    "compose",
+                    "-f",
+                    "${cwd}${/}assets${/}docker-compose.dev.yml",
+                    "up",
+                    "--pull=always",
+                    "--build",
+                    "--detach"
+                ],
+                "command": "docker",
+                "group": "none",
+                "label": "[Docker DevEnv] Start",
+                "presentation": {
+                    "echo": false,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "dedicated",
+                    "showReuseMessage": false,
+                    "clear": true
+                },
+                "problemMatcher": [],
+                "type": "shell"
+            },
+            {
+                "args": [
+                    "compose",
+                    "-f",
+                    "${cwd}${/}assets${/}docker-compose.dev.yml",
+                    "down",
+                    "--rmi=local"
+                ],
+                "command": "docker",
+                "group": "none",
+                "label": "[Docker DevEnv] Stop",
+                "presentation": {
+                    "echo": false,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "dedicated",
+                    "showReuseMessage": false,
+                    "clear": true
+                },
+                "problemMatcher": [],
+                "type": "shell"
+            },
+            {
+                "args": [
+                    "compose",
+                    "-f",
+                    "${cwd}${/}assets${/}docker-compose.dev.yml",
+                    "run",
+                    "--rm",
+                    "python",
+                    "python3",
+                    "-m",
+                    "pip",
+                    "install",
+                    "--upgrade",
+                    "--compile",
+                    "--requirement",
+                    "/tmp/workspace/__backend/requirements"
+                ],
+                "command": "docker",
+                "group": "none",
+                "label": "[Docker Python] Initilize",
+                "presentation": {
+                    "echo": false,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "dedicated",
+                    "showReuseMessage": false,
+                    "clear": true
+                },
+                "problemMatcher": [],
+                "type": "shell"
+            },
+            {
+                "args": [
+                    "exec",
+                    "devEnv_python",
+                    "python3",
+                    "__backend/manage.py",
+                    "runserver",
+                    "0.0.0.0:8000"
+                ],
+                "command": "docker",
+                "group": "none",
+                "label": "[Docker Python] Run",
+                "presentation": {
+                    "echo": false,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "dedicated",
+                    "showReuseMessage": false,
+                    "clear": true
+                },
+                "problemMatcher": [],
+                "type": "shell"
+            },
+            {
+                "args": [
+                    "compose",
+                    "-f",
+                    "${cwd}${/}assets${/}docker-compose.dev.yml",
+                    "run",
+                    "--rm",
+                    "node",
+                    "npm",
+                    "--prefix",
+                    "/tmp/workspace/__frontend",
+                    "install",
+                    "--force"
+                ],
+                "command": "docker",
+                "group": "none",
+                "label": "[Docker Node] Initilize",
+                "presentation": {
+                    "echo": false,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "dedicated",
+                    "showReuseMessage": false,
+                    "clear": true
+                },
+                "problemMatcher": [],
+                "type": "shell"
+            },
+            {
+                "args": [
+                    "-m",
+                    "pip",
+                    "install",
+                    "--upgrade",
+                    "--compile",
+                    "--requirement",
+                    "${cwd}${/}__backend/requirements"
+                ],
+                "command": "python3",
+                "group": "none",
+                "label": "[Python Shell] Initilize",
+                "presentation": {
+                    "echo": false,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "dedicated",
+                    "showReuseMessage": false,
+                    "clear": true
+                },
+                "problemMatcher": [],
+                "type": "shell"
+            },
+            {
+                "args": [
+                    "/tmp/workspace/__backend/manage.py",
+                    "runserver",
+                    "0.0.0.0:8000"
+                ],
+                "command": "python3",
+                "group": "none",
+                "label": "[Python Shell] Run",
+                "presentation": {
+                    "echo": false,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "dedicated",
+                    "showReuseMessage": false,
+                    "clear": true
+                },
+                "problemMatcher": [],
+                "type": "shell"
+            },
+            {
+                "args": [
+                    "/tmp/workspace/__backend/manage.py",
+                    "startapp",
+                    "${input:module_id_input}"
+                ],
+                "command": "python3",
+                "group": "none",
+                "label": "[Python Shell] Create Module ...",
+                "options": {
+                    "cwd": "/tmp/workspace/__backend/src"
+                },
+                "presentation": {
+                    "echo": false,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "dedicated",
+                    "showReuseMessage": false,
+                    "clear": true
+                },
+                "problemMatcher": [],
+                "type": "shell"
+            },
+            {
+                "args": [
+                    "--prefix",
+                    "${cwd}${/}__frontend",
+                    "install",
+                    "--force"
+                ],
+                "command": "npm",
+                "group": "none",
+                "label": "[Node Shell] Initilize",
+                "presentation": {
+                    "echo": false,
+                    "reveal": "always",
+                    "focus": false,
+                    "panel": "dedicated",
+                    "showReuseMessage": false,
+                    "clear": true
+                },
+                "problemMatcher": [],
+                "type": "shell"
+            }
+        ],
+        "inputs": [
+            {
+                "id": "module_id_input",
+                "description": "Module ID to create",
+                "type": "promptString"
+            }
+        ]
+    }
+}
